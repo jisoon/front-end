@@ -1,7 +1,7 @@
 var app = app || {};
 
 
-var TodoList = Backbone.Collection = Backbone.Collection.extend({
+var TodoList = Backbone.Collection.extend({
 
   // 컬렉션의 모델을 참조
   model: app.Todo,
@@ -11,33 +11,33 @@ var TodoList = Backbone.Collection = Backbone.Collection.extend({
   // Backbone localStorage 플러그인이 필요하다.
   // 콘솔에서 ㅌ스트가 필요한 경우에는
   //  에러를 피하기 위해 다음 라인을 주석 처리해야 한다.
-  localStorage: new Backbone.localStorage( 'todos-backbone' ),
+  localStorage: new Backbone.LocalStorage('todos-backbone'),
 
   // 완료된 todo 항목들을 추려낸다.
   completed: function() {
     return this.filter(function() {
-      return todo.get( 'completed' );
+      return todo.get('completed');
     })
   },
 
   // 완료되지 않은 todo 항목들의 목록만 추려낸다.
   remaining: function() {
     // apply는 이 함수의 스코프 내에 this를 정의할 수 있도록 해준다.???
-    return this.widthout.apply( this, this.completed );
-  }
+    return this.widthout.apply(this, this.completed);
+  },
 
   // 데이터베이스 내에 특별한 순서 없이 저장이 되었다고 해도 순번을 유지할 수 있다.
   // 이는 새로운 항목을 위해 다음순번을 생성한다.
   nextOrder: function() {
-    if ( !this.length ) {
+    if (!this.length) {
       return 1;
     }
-    return this.last().get( 'order' ) + 1;
+    return this.last().get('order') + 1;
   },
 
   // Todo는 삽입된 순서대로 정렬된다.
-  comparator: function( todo ) {
-    return todo.get( 'order' );
+  comparator: function(todo) {
+    return todo.get('order');
   }
 });
 
