@@ -33,7 +33,10 @@ $(function() {
       this.$el.toggleClass('hidden', this.isHidden());
     },
     isHidden: function() {
-      var isCompleted = this.model.get('completed');
+      console.log(this.model);
+      console.log(this.model.get('completed'));
+      // completed 면  active 상태가 hidden
+      // completed 아니면 completed 가 hidden
       return this.model.get('completed') ?
   				app.TodoFilter === 'active' :
   				app.TodoFilter === 'completed';

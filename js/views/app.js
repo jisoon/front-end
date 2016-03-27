@@ -52,7 +52,13 @@ $(function() {
       // todos 컬렉션에서 completed 된 모델이 있다면 filterOne 콜백 메소드를 호출
       // 이때 completed 된 모델이 파라미터로 간다.
       this.listenTo(app.Todos, 'change:completed', this.filterOne);
+
+      // app.Todos(Todos collection) 에 filter event 가 발생하면
+      // this.fiterAll 메소드를 실행
       this.listenTo(app.Todos, 'filter', this.filterAll);
+
+      // app.Todos(Todos collections) 에 all 이벤트가 발생하면
+      // 화면을 다시 render
       this.listenTo(app.Todos, 'all', this.render);
 
       app.Todos.fetch({
@@ -79,11 +85,14 @@ $(function() {
           remaining: remaining
         }));
 
-        this.$('#filters li a').removeClass('selected').filter('[href="#/' + (app.TodoFilter || '') + '"]').addClass('selected');
+        this.$('.filters li a')
+					.removeClass('selected')
+					.filter('[href="#/' + (app.TodoFilter || '') + '"]')
+					.addClass('selected');
 
       } else {
         this.$main.hide();
-        this$footer.hide();
+        this.$footer.hide();
       }
       $(this.allCheckbox).checked = !remaining;
     },
@@ -104,11 +113,14 @@ $(function() {
 
     // 신규
     filterOne: function(todo) {
+      console.log(todo);
       todo.trigger('visible');
     },
 
     // 신규
     filterAll: function() {
+      console.log("filterAll call");
+      console.log(this);
       app.Todos.each(this.filterOne, this);
     },
 

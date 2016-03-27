@@ -11,7 +11,9 @@ $(function() {
     },
 
     setFilter: function(param) {
-      
+      console.log(param);
+      // trigger a collection filter event, causing hiding/unhiding
+      // of Todo view items
       app.Todos.trigger('filter');
     }
   });

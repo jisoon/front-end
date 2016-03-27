@@ -10,8 +10,6 @@ $(function() {
     // todos-backbone 네임스페이스 아래 모든 todo 항목들을 저장한다.
     // 이 작업을 위해 이 페이지에는
     // Backbone localStorage 플러그인이 필요하다.
-    // 콘솔에서 ㅌ스트가 필요한 경우에는
-    //  에러를 피하기 위해 다음 라인을 주석 처리해야 한다.
     localStorage: new Backbone.LocalStorage('todos-backbone'),
 
     // 완료된 todo 항목들을 추려낸다.
@@ -44,5 +42,5 @@ $(function() {
 
   // Todos 모록의 전역 컬렉션을 생성한다.
   app.Todos = new TodoList();
-  
+
 });
