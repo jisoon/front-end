@@ -14,6 +14,7 @@ $(function() {
     },
     // 이 todo 항목의 completed 상태를 토글시킨다.
     toggle: function() {
+      console.log('todo toggle : '+!this.get('completed'));
       this.save({
         completed: !this.get('completed')
       });

@@ -3,6 +3,9 @@ var app = app || {};
 
 // 이거 없으면.. 생성 할 수 없음.
 $(function() {
+
+  'use strict';
+
   app.AppView = Backbone.View.extend({
     /**
      새로운 엘리먼트를 만드는 대신에
@@ -70,6 +73,8 @@ $(function() {
     신규
     통계 정보를 갱신하기 위해 어플리케이션을 다시 랜더링한다.
     애플리케이션의 다른 부분은 변경이 없다.
+    this.listenTo(app.Todos, 'all', this.render);
+    이부분 때문에 Todos 가 변경이 이루엉 지면 render를 다시 한다.
     */
     render: function() {
       var completed = app.Todos.completed().length;
@@ -111,17 +116,16 @@ $(function() {
       app.Todos.each(this.addOne, this);
     },
 
-    // 신규
+    //
     filterOne: function(todo) {
-      console.log(todo);
       todo.trigger('visible');
     },
 
     // 신규
-    filterAll: function() {
-      console.log("filterAll call");
-      console.log(this);
+    filterAll: function(param) {
+      // this.completed = param;
       app.Todos.each(this.filterOne, this);
+      this.render();
     },
 
     // 신규

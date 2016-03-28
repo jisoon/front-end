@@ -1,4 +1,6 @@
 $(function() {
+  'use strict';
+
   var Workspace = Backbone.Router = Backbone.Router.extend({
 
     routes: {
@@ -11,10 +13,10 @@ $(function() {
     },
 
     setFilter: function(param) {
-      console.log(param);
+      app.TodoFilter = param || '';
       // trigger a collection filter event, causing hiding/unhiding
       // of Todo view items
-      app.Todos.trigger('filter');
+      app.Todos.trigger('filter', param);
     }
   });
 

@@ -21,25 +21,25 @@ $(function() {
     },
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-
       this.$el.toggleClass('completed', this.model.get('completed'));
       this.toggleVisible();
-
       this.$input = this.$('.edit');
       return this;
     },
+
     // event callback
     toggleVisible: function() {
+      // hidden 클래스 토글함 기존에 $el 에 hidden class 가 있다면
+      // hidden 이 없어지고 hidden 클래스가 없다면 hidden 클래스가 생김
+      // 말글대로 toggle class 임
       this.$el.toggleClass('hidden', this.isHidden());
     },
     isHidden: function() {
-      console.log(this.model);
-      console.log(this.model.get('completed'));
       // completed 면  active 상태가 hidden
       // completed 아니면 completed 가 hidden
       return this.model.get('completed') ?
-  				app.TodoFilter === 'active' :
-  				app.TodoFilter === 'completed';
+				app.TodoFilter === 'active' :
+				app.TodoFilter === 'completed' ;
     },
     // 항목의 상태를 completed 로 변경
     togglecompleted: function() {
