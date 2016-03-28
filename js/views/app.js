@@ -8,9 +8,8 @@ $(function() {
 
   app.AppView = Backbone.View.extend({
     /**
-     새로운 엘리먼트를 만드는 대신에
-     기존의 HTML에 존재하는 애플리케이션의 el에 바인딩한다.
-     Html todoapp 이라는 엘리멘트의 view를 바인딩 한다. 이런 의미겠지요.
+     el 을 사용하면 html 에 정의된 엘리멘트를 사용하고
+     tagName 을 사용하면 새로운 엘리멘트를 생성한다.
     */
     el: "#todoapp",
     /**
@@ -42,8 +41,12 @@ $(function() {
       // 결국 this 는 해당 view el 에 정의된 엘리멘트 이다.
 
       // #todoapp 에서 #toggle-all 을 찼는다.
+      // 그리고 app.view.allCheckbox 프로퍼티에 object 저장
       this.allCheckbox = this.$('#toggle-all')[0];
+
       // #todoapp 에서 #new-todo 을 찼는다.
+      // this(app.view).$input 프로퍼티에 id="new-todo" 인 엘리멘트를
+      // jquery 객체로 저장한다. $ 은 jquery 객체라는것을 표시하기 위해서...
       this.$input = this.$('#new-todo');
       this.$footer = this.$('#footer');
       this.$main = this.$('#main');
@@ -51,19 +54,26 @@ $(function() {
       // app.Todos 에 add event 가 발생하면 this.addOne 메소드 실행
       this.listenTo(app.Todos, 'add', this.addOne);
       this.listenTo(app.Todos, 'reset', this.addAll);
-      // 신규
-      // todos 컬렉션에서 completed 된 모델이 있다면 filterOne 콜백 메소드를 호출
-      // 이때 completed 된 모델이 파라미터로 간다.
+
+      // app.Todos 는 collection 이다. collection 은 change 이벤트가 없다.
+      // 그렇다면 아래에 change:attributes 는 collection 이벤트가 아니라
+      // model 이벤트 이다.
+      // 참조(http://iwidgets.kr/document/backbonejs.html#Model-change)
       this.listenTo(app.Todos, 'change:completed', this.filterOne);
 
-      // app.Todos(Todos collection) 에 filter event 가 발생하면
-      // this.fiterAll 메소드를 실행
+
+      // filter 는 underscore 이벤트 이다.
+      // app.Todos collection 에 filter 이벤트가 발생하면 this.filterAll
+      // 메소드가 실행
       this.listenTo(app.Todos, 'filter', this.filterAll);
 
-      // app.Todos(Todos collections) 에 all 이벤트가 발생하면
-      // 화면을 다시 render
+      // app.Todos(Todos collections) 에 어떤 이벤트가 발생하여도 render
+      // 를 한다는 의미
+      //"all" — this special event fires for any triggered event,
+      // passing the event name as the first argument.
       this.listenTo(app.Todos, 'all', this.render);
 
+      // collection fetch
       app.Todos.fetch({
         reset: true
       });
@@ -82,9 +92,12 @@ $(function() {
 
       if (app.Todos.length) {
 
+        // 화면에서는 todo list
         this.$main.show();
+        // 화면에서는 todo stats
         this.$footer.show();
 
+        // footer 에 완료 된것가 남은것에 대한 값을 부여
         this.$footer.html(this.statsTemplate({
           completed: completed,
           remaining: remaining
@@ -99,7 +112,17 @@ $(function() {
         this.$main.hide();
         this.$footer.hide();
       }
-      $(this.allCheckbox).checked = !remaining;
+
+      // 의미가 어려워..
+      this.allCheckbox.checked = this.isAllCompleted(remaining);
+    },
+
+    isAllCompleted : function(remainingCount){
+      if(remainingCount === 0){
+        return true;
+      }else{
+        return false;
+      }
     },
 
     // 항목을 추가하기 위한 뷰를 생성해서

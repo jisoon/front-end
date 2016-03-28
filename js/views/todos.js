@@ -2,8 +2,11 @@ var app = app || {};
 
 $(function() {
   app.TodoView = Backbone.View.extend({
+
+    // 이러면 새로운 태그를 만든다.
     tagName: 'li',
 
+    // tageName (여기에서는 li) 하단으로 들어갈 template 를 가져온다.
     template: _.template($('#item-template').html()),
 
     events: {
@@ -20,7 +23,9 @@ $(function() {
       this.listenTo(this.model, 'visible', this.toggleVisible);
     },
     render: function() {
+      // tageName.html(template) 의미;
       this.$el.html(this.template(this.model.toJSON()));
+
       this.$el.toggleClass('completed', this.model.get('completed'));
       this.toggleVisible();
       this.$input = this.$('.edit');
