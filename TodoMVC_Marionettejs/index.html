@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Marionette TodoMVC</title>
+  <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+  <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+  <section id="todoapp" class="todoapp">
+    <header id="header" class="header"></header>
+    <section id="main" class="main"></section>
+    <footer id="footer" class="footer"></footer>
+  </section>
+  <footer id="info">
+    <p>Double-click to edit</p>
+    <p>Created by</p>
+  </footer>
+
+  <script type="text/html" id="template-footer">
+    <span id="todo-count"><strong><%= activeCount %></strong><%=activeCountLabel()%></span>
+    <ul id="filters">
+      <li class="all">
+        <a href="#">All</a>
+      </li>
+      <li class="active">
+        <a href="#/active">Active</a>
+      </li>
+      <li class="completed">
+        <a href="#/completed">Completed</a>
+      </li>
+    </ul>
+  </script>
+
+  <script type="text/html" id="template-header">
+    <h1>todos</h1>
+    <input type="text" id="new-todo" placeholder="What needs to bo done?" autofocus="true">
+  </script>
+
+  <script type="text/html" id="template-todoItemView">
+    <div class="view">
+      <input type="checkbox" class="toggle" <% if (completed){%> checked
+      <%}%>>
+        <label for="">
+          <%- title %>
+        </label>
+        <button class="destroy"></button>
+    </div>
+    <input type="text" class="edit" value="<%- title%>">
+  </script>
+
+  <script type="text/html" id="template-todoListCompositeView">
+    <input id="toggle-all" type="checkbox">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul id="todo-list"></ul>
+  </script>
+
+  <!-- vender libraries -->
+  <script src="node_modules/todomvc-common/base.js"></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src="node_modules/underscore/underscore.js"></script>
+  <script src="node_modules/backbone/backbone.js"></script>
+  <script src="node_modules/backbone.localstorage/backbone.localstorage.js"></script>
+  <script src="node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
+  <script src="node_modules/backbone.radio/build/backbone.radio.js"></script>
+  <!-- application -->
+  <script src="js/TodoMVC.Application.js"></script>
+  <script src="js/TodoMVC.Todos.js"></script>
+  <script src="js/TodoMVC.Layout.js"></script>
+  <script src="js/TodoMVC.TodoList.Views.js"></script>
+  <script src="js/TodoMVC.Router.js"></script>
+  <script src="js/TodoMVC.FilterState.js"></script>
+  <script src="js/TodoMVC.js"></script>
+</body>
+
+</html>

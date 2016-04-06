@@ -1,0 +1,27 @@
+{
+  "name": "TodoMVC_Marionettejs",
+  "description": "",
+  "main": "",
+  "authors": [
+    "jisoonchoi <jisoon0923@gmail.com>"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "dependencies" : {
+    "backbone" : "^1.2.2",
+    "backbone.localstorage" : "^1.1.6",
+    "backbone.marionette" : "^2.4.1",
+    "backbone.radio" : "^1.0.1",
+    "jquery" : "^1.11.2",
+    "todomvc-app-css" : "^1.0.1",
+    "todomvc-common" : "^1.0.1",
+    "underscore": "^1.6.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
